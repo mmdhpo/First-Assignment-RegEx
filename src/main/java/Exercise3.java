@@ -47,7 +47,6 @@ public class Exercise3 {
                 wordsWithRepeatLetters.add(word);
             }
         }
-
         return wordsWithRepeatLetters;
     }
     private static boolean hasRepeatedLetters(String word) {
