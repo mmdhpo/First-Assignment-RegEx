@@ -11,17 +11,13 @@ public class Exercise3 {
     */
 
     public static String extractURL(String text) {
-        String regex = "write your regex pattern here!";  // TODO
-
-        Pattern pattern = Pattern.compile(regex);
+        String regex = "\\bhttp://[^\\s]*|https://[^\\s]*";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(text);
-
-        if (matcher.find()) {
+        if (matcher.find())
             return matcher.group();
-        }
-        else{
+        else
             return null;
-        }
     }
 
     /*
@@ -29,8 +25,13 @@ public class Exercise3 {
      */
 
     public static boolean validateEmail(String email) {
-        // TODO
-        return false;
+        String regex = "\\b@[^.]*|@[^.]*";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        if (matcher.find())
+            return true;
+        else
+            return false;
     }
 
     /*
@@ -39,8 +40,28 @@ public class Exercise3 {
 
     public static List<String> findWordsWithRepeatLetters(String input) {
         List<String> wordsWithRepeatLetters = new ArrayList<>();
+        String[] words = input.split("\\s+");
+
+        for (String word : words) {
+            if (hasRepeatedLetters(word)) {
+                wordsWithRepeatLetters.add(word);
+            }
+        }
+
         return wordsWithRepeatLetters;
-        // TODO
+    }
+
+    private static boolean hasRepeatedLetters(String word) {
+        for (int i = 0; i < word.length() - 1; i++) {
+            for(int j = i + 1; j < word.length(); j++) {
+                char currentChar = Character.toLowerCase(word.charAt(i));
+                char nextChar = Character.toLowerCase(word.charAt(j));
+                if (currentChar == nextChar) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /*
@@ -57,5 +78,6 @@ public class Exercise3 {
 
     public static void main(String[] args) {
         // test your code here!
+        System.out.println(findWordsWithRepeatLetters("word with repeat letters: hello"));
     }
 }
